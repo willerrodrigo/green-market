@@ -1,11 +1,14 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-
+const dotenv = require('dotenv');
 const routes = require('./routes');
+
 const app = express();
 
-mongoose.connect('mongodb+srv://admin:admin@cluster0-khaqg.mongodb.net/greenmarket?retryWrites=true&w=majority', {
+dotenv.config();
+
+mongoose.connect(process.env.DATABASE_URI, {
     useNewUrlParser: true
 });
 
