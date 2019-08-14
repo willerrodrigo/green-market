@@ -1,4 +1,5 @@
 const Market = require('../models/market');
+const Product = require('../models/product');
 
 module.exports = {
   async index(req, res) {
@@ -10,25 +11,24 @@ module.exports = {
   },
 
   async store(req, res) {
-    const { market } = req.headers;
+    const {
+      name, price, weight, volume, category, market
+    } = req.body;
 
     const loggedMarket = await Market.findById(market);
 
-    const {
-      name, price, weight, volume, category
-    } = req.body;
-
-    const product = {
+    const product = await Product.create({
+      market,
       name,
       price,
       weight,
       volume,
       category
-    };
+    });
 
-    loggedMarket.products.push(product);
+    loggedMarket.products.push(product._id);
 
-    loggedMarket.save(function (err) {
+    await loggedMarket.save(function (err) {
       if (err) return console.log(err);
       console.log('Success!');
     });
