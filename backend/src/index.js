@@ -9,7 +9,7 @@ const app = express();
 dotenv.config();
 
 mongoose.connect(process.env.DATABASE_URI, {
-    useNewUrlParser: true
+    useNewUrlParser: true,
 });
 
 app.use(cors());
