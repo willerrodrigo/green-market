@@ -1,13 +1,12 @@
 import React from 'react';
-import './Shopping.css';
+import './styles.css';
 
-import logo from '../assets/mongo_logo_menor.png';
+import logo from '../../assets/logo.svg';
 
-export default function Shopping() {
+export default function Home() {
     return (
         <div className="logo-container">
             <img src={logo} alt="Green Market" />
-            
         </div>
     );
 }
