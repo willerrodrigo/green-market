@@ -1,6 +1,38 @@
-.logo-container {
-    height: 100%;
+form#new-product {
+    width: 100%;
+    max-width: 580px;
+    margin: 30px auto 0;
+    padding: 30px;
+    background: #fff;
+    border: 1px solid #ddd;
+  
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+}
+
+form#new-product input {
+    margin-bottom: 10px;
+}
+
+form#new-product input[type=text] {
+    height: 38px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    padding: 0 20px;
+    font-size: 14px;
+}
+
+form#new-product button {
+    padding: 10px 20px;
+    border-radius: 4px;
+    border: 0;
+    background: #228B22;
+    color: #FFF;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+form#new-product button:disabled {
+    opacity: 0.5;
 }

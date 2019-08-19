@@ -7,7 +7,7 @@ export default function Shopping() {
     return (
         <div className="shopping-container">
             <form>
-                <input placeholder="Produto" />
+                <input placeholder="Product" />
                 <button type="submit">Add</button>
             </form>
             <div className="bag-container">

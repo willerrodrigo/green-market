@@ -10,7 +10,7 @@ routes.get('/markets', MarketController.index);
 routes.post('/markets', MarketController.store);
 
 // PRODUCT
-routes.get('/markets/products', ProductController.index);
-routes.post('/markets/products', ProductController.store);
+routes.get('/products', ProductController.index);
+routes.post('/products', ProductController.store);
 
 module.exports = routes;
