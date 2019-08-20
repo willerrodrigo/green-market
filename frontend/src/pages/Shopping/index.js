@@ -1,7 +1,7 @@
 import React from 'react';
 import './styles.css';
 
-import bag from '../../assets/Bag 2.svg';
+import bag from '../../assets/bagFinal.svg';
 
 export default function Shopping() {
     return (
@@ -11,8 +11,54 @@ export default function Shopping() {
                 <button type="submit">Add</button>
             </form>
             <div className="bag-container">
-                <img src={bag} alt="Sacola" height="68" />
-                <img src={bag} alt="Sacola" height="68" />
+                <ul>
+                    <li>    
+                        <img src={bag} alt="Sacola" height="68" />
+                        <footer><strong>100%</strong></footer>
+                    </li>
+                    <li>    
+                        <img src={bag} alt="Sacola" height="68" />
+                        <footer><strong>100%</strong></footer>
+                    </li><li>    
+                        <img src={bag} alt="Sacola" height="68" />
+                        <footer><strong>100%</strong></footer>
+                    </li><li>    
+                        <img src={bag} alt="Sacola" height="68" />
+                        <footer><strong>100%</strong></footer>
+                    </li><li>    
+                        <img src={bag} alt="Sacola" height="68" />
+                        <footer><strong>100%</strong></footer>
+                    </li><li>    
+                        <img src={bag} alt="Sacola" height="68" />
+                        <footer><strong>100%</strong></footer>
+                    </li><li>    
+                        <img src={bag} alt="Sacola" height="68" />
+                        <footer><strong>100%</strong></footer>
+                    </li><li>    
+                        <img src={bag} alt="Sacola" height="68" />
+                        <footer><strong>100%</strong></footer>
+                    </li>
+                    <li>    
+                        <img src={bag} alt="Sacola" height="68" />
+                        <footer><strong>100%</strong></footer>
+                    </li>
+                    <li>    
+                        <img src={bag} alt="Sacola" height="68" />
+                        <footer><strong>100%</strong></footer>
+                    </li>
+                    <li>    
+                        <img src={bag} alt="Sacola" height="68" />
+                        <footer><strong>100%</strong></footer>
+                    </li>
+                    <li>    
+                        <img src={bag} alt="Sacola" height="68" />
+                        <footer><strong>100%</strong></footer>
+                    </li>
+                    <li>    
+                        <img src={bag} alt="Sacola" height="68" />
+                        <footer><strong>100%</strong></footer>
+                    </li>
+                </ul>
             </div>
         </div>
     );
