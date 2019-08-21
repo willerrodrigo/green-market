@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import Shopping from './pages/Shopping/index.js';
 import Products from './pages/Products'; 
 import Register from './pages/Register';
+import Modal from './components/Model';
 
 export default function Routes() {
     return (
@@ -14,6 +15,7 @@ export default function Routes() {
             <Route exact path="/shopping" component={Shopping} />
             <Route exact path="/products" component={Products} />
             <Route exact path="/register" component={Register} />
+            <Route exact path="/modal/:id" component={Modal} />
         </Switch>
     );
 }
