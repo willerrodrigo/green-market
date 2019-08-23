@@ -5,9 +5,9 @@ module.exports = {
   async index(req, res) {
     const { market } = req.headers;
 
-    const loggedMarket = await Market.findById(market);
+    const products = await Product.find({ market: market}, 'name');
 
-    return res.json(loggedMarket.products);
+    return res.json(products);
   },
 
   async store(req, res) {
@@ -35,4 +35,12 @@ module.exports = {
 
     return res.json(product);
   },
+
+  async show(req, res) {
+    var productId = req.params.id;
+
+    const product = await Product.findById(productId);
+
+    return res.json(product);
+  }
 };

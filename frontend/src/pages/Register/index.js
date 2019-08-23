@@ -66,7 +66,7 @@ class Register extends Component {
           <input
             type="text"
             name="weight"
-            placeholder="Weight"
+            placeholder="Weight (Kg)"
             onChange={this.handleChange}
             value={this.state.weight}
           />
@@ -74,7 +74,7 @@ class Register extends Component {
           <input
             type="text"
             name="volume"
-            placeholder="Volume"
+            placeholder="Volume (L)"
             onChange={this.handleChange}
             value={this.state.volume}
           />

@@ -1,70 +1,47 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import api from '../../services/api';
 import './styles.css';
 
-import ListItem from '../../components/ListItem';
-
 export default function Products() {
-    const products = [
-        {
-            id: '1',
-            name: 'Arroz'
-        },
-        {
-            id: '2',
-            name: 'Feijão'
-        },
-        {
-            id: '3',
-            name: 'Leite'
-        },
-        {
-            id: '4',
-            name: 'Macarrão'
-        },
-        {
-            id: '5',
-            name: 'Macarrão'
-        },
-        {
-            id: '6',
-            name: 'Macarrão'
-        },
-        {
-            id: '7',
-            name: 'Macarrão'
-        },
-        {
-            id: '8',
-            name: 'Macarrão'
-        },
-        {
-            id: '9',
-            name: 'Macarrão'
-        },
-        {
-            id: '10',
-            name: 'Macarrão'
-        },
-        {
-            id: '11',
-            name: 'Macarrão'
-        },
-        {
-            id: '12',
-            name: 'Macarrão'
-        },
-        {
-            id: '13',
-            name: 'Macarrão'
-        },
-    ];
+    const [style, setStyle] = useState({});
+    const [modalProduct, setModalProduct] = useState({});
+    const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+        var config = { headers: {'market': '5d532e0887aded0960431e7e'} };
+
+        async function fetchData() {
+            var products = await api.get('products', config);
+            console.log(products);
+            setProducts(products.data);
+        }
+
+        fetchData();
+    }, []);
+
+    const handleModal = async (display, id) => {        
+        if(id){
+            var product = await api.get(`products/${id}`);
+            console.log(product);
+            setModalProduct(product.data);
+        }
+
+        setStyle({ display })
+    }
 
     return (
         <div className="container">
+            <div id="myModal" className="modal" style={style}>
+                <div className="modal-content">
+                    <span className="close" onClick={() => handleModal("none", undefined)}>&times;</span>
+                    <p>{modalProduct.name}</p>
+                </div>
+            </div>
             <ul>
                 {products.map((product) =>
-                    <ListItem key={product.id.toString()}
-                                value={product} />
+                    <li key={product._id.toString()} onClick={() => handleModal("block", product._id)}>
+                        <p>{product.name}</p>
+                    </li>
                 )}
             </ul>
         </div>
