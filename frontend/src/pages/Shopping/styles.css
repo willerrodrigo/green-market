@@ -41,7 +41,6 @@
     min-height: 400px;
     max-width: 580px;
     margin: 30px auto 0;
-    padding: 3px;
     background: #fff;
     border: 1px solid #ddd;
 }
@@ -49,8 +48,13 @@
 .shopping-container .baglog-container .bag-container ul {
     list-style: none;
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     grid-gap: 10px;
+    height: 350px;
+    overflow-y: auto;
+    margin-bottom: 6px;
+    padding: 5px;
+    border: 1px solid #ddd;
 }
 
 .shopping-container .baglog-container .bag-container ul li {
@@ -68,13 +72,11 @@
       color: #228B22;
   }
 
-  .shopping-container .baglog-container .bag-container footer {
-      color: #666;
-  }
-
-  .shopping-container .baglog-container .bag-container footer strong {
+  .shopping-container .baglog-container .bag-container .teste {
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-end;
+    align-items: flex-end;
+    color: #666;
 }
 
   .shopping-container .baglog-container .log-container {
@@ -84,13 +86,18 @@
     min-height: 400px;
     max-width: 280px;
     margin: 30px auto 0;
-    padding: 3px;
     background: #fff;
     border: 1px solid #ddd;
 }
 
 .shopping-container .baglog-container .log-container ul {
     list-style: none;
+    height: 350px;
+    overflow-y: auto;
+    margin-bottom: 6px;
+    margin-top: 6px;
+    padding: 5px;
+    border: 1px solid #ddd;
 }
 
 .shopping-container .baglog-container .log-container ul li {
