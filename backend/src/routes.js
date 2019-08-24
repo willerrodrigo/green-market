@@ -13,5 +13,6 @@ routes.post('/markets', MarketController.store);
 routes.get('/products', ProductController.index);
 routes.get('/products/:id', ProductController.show);
 routes.post('/products', ProductController.store);
+routes.put('/products', ProductController.update);
 
 module.exports = routes;

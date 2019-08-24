@@ -6,7 +6,7 @@ import Home from './pages/Home';
 import Shopping from './pages/Shopping/index.js';
 import Products from './pages/Products'; 
 import Register from './pages/Register';
-import Modal from './components/Model';
+import Modal from './components/Modal';
 
 export default function Routes() {
     return (

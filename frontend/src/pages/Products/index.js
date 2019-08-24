@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import api from '../../services/api';
 import './styles.css';
 
+import Modal from '../../components/Modal';
+
 export default function Products() {
-    const [style, setStyle] = useState({});
     const [modalProduct, setModalProduct] = useState({});
     const [products, setProducts] = useState([]);
 
@@ -11,35 +12,31 @@ export default function Products() {
         var config = { headers: {'market': '5d532e0887aded0960431e7e'} };
 
         async function fetchData() {
-            var products = await api.get('products', config);
-            console.log(products);
-            setProducts(products.data);
+            var response = await api.get('products', config);
+            console.log(response);
+            setProducts(response.data);
         }
 
         fetchData();
     }, []);
 
-    const handleModal = async (display, id) => {        
+    const handleModal = async (id) => {        
         if(id){
-            var product = await api.get(`products/${id}`);
-            console.log(product);
-            setModalProduct(product.data);
+            var response = await api.get(`products/${id}`);
+            console.log(response);
+            setModalProduct(response.data);
         }
 
-        setStyle({ display })
+        var modal = document.getElementById("myModal");
+        modal.style.display = "block";
     }
 
     return (
         <div className="container">
-            <div id="myModal" className="modal" style={style}>
-                <div className="modal-content">
-                    <span className="close" onClick={() => handleModal("none", undefined)}>&times;</span>
-                    <p>{modalProduct.name}</p>
-                </div>
-            </div>
+            <Modal value={modalProduct}/>
             <ul>
                 {products.map((product) =>
-                    <li key={product._id.toString()} onClick={() => handleModal("block", product._id)}>
+                    <li key={product._id.toString()} onClick={() => handleModal(product._id)}>
                         <p>{product.name}</p>
                     </li>
                 )}

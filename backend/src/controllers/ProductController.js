@@ -42,5 +42,20 @@ module.exports = {
     const product = await Product.findById(productId);
 
     return res.json(product);
+  },
+
+  async update(req, res) {
+    const { filter, update } = req.body;
+
+    const product = await Product.findOneAndUpdate(filter, update, {
+      new: true
+    });
+
+    console.log(product);
+    return res.json(product);
+  },
+
+  async delete(req, res) {
+
   }
 };
