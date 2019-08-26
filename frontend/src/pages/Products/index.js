@@ -9,21 +9,20 @@ export default function Products() {
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
-        var config = { headers: {'market': '5d532e0887aded0960431e7e'} };
-
-        async function fetchData() {
-            var response = await api.get('products', config);
-            console.log(response);
-            setProducts(response.data);
-        }
-
         fetchData();
     }, []);
+
+    const fetchData = async () => {
+        var config = { headers: {'market': '5d532e0887aded0960431e7e'} };
+
+        var response = await api.get('products', config);
+        console.log(response);
+        setProducts(response.data);
+    }
 
     const handleModal = async (id) => {        
         if(id){
             var response = await api.get(`products/${id}`);
-            console.log(response);
             setModalProduct(response.data);
         }
 
@@ -33,7 +32,7 @@ export default function Products() {
 
     return (
         <div className="container">
-            <Modal value={modalProduct}/>
+            <Modal value={modalProduct} update={fetchData}/>
             <ul>
                 {products.map((product) =>
                     <li key={product._id.toString()} onClick={() => handleModal(product._id)}>

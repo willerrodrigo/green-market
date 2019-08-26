@@ -17,7 +17,6 @@ export default class Modal extends Component {
 
     componentDidUpdate(prevProps){
         if (this.props.value !== prevProps.value) {
-            console.log('atualizou');
             this.setState({
                 name: this.props.value.name,
                 price: this.props.value.price,
@@ -38,9 +37,7 @@ export default class Modal extends Component {
 
         if(e.target.id === 'editButton'){
              await api.put('products', {
-                filter: {
-                    '_id': this.props.value._id,
-                },
+                _id: this.props.value._id,
                 update: {
                     'name': this.state.name,
                     'price': this.state.price,
@@ -49,10 +46,15 @@ export default class Modal extends Component {
                     'category': this.state.category,
                 }
             });
-            console.log('Dale');
-        }
 
-        this.setState({ disableDeleteBtn: false });
+            this.setState({ disableDeleteBtn: false });
+        }
+        else {
+            await api.delete(`products/${this.props.value._id}`);
+            var modal = document.getElementById("myModal");
+            modal.style.display = "none";
+            this.props.update();
+        }
     }
 
     handleChange = (e) => {
