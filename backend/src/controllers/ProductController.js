@@ -9,7 +9,7 @@ module.exports = {
       if(err) return res.send(err);
 
       return res.json(doc);
-    });
+    }).sort('-createdAt');
   },
 
   async store(req, res) {

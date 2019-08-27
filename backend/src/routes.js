@@ -2,12 +2,16 @@ const express = require('express');
 
 const MarketController = require('./controllers/MarketController');
 const ProductController = require('./controllers/ProductController');
+const AuthController = require('./controllers/AuthController');
 
 const routes = new express.Router();
 
+// AUTH
+routes.post('markets/authenticate', AuthController.auth);
+
 // MARKET
 routes.get('/markets', MarketController.index);
-routes.post('/markets', MarketController.store);
+routes.post('/markets/signup', MarketController.store);
 
 // PRODUCT
 routes.get('/products', ProductController.index);

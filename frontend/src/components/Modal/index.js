@@ -53,8 +53,9 @@ export default class Modal extends Component {
             await api.delete(`products/${this.props.value._id}`);
             var modal = document.getElementById("myModal");
             modal.style.display = "none";
-            this.props.update();
         }
+
+        this.props.update();
     }
 
     handleChange = (e) => {

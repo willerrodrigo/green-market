@@ -1,4 +1,5 @@
 const Market = require('../models/market');
+const bcrypt = require('bcryptjs');
 
 module.exports = {
   async index(req, res) {
@@ -9,15 +10,21 @@ module.exports = {
 
   async store(req, res) {
     const {
-       name, phone, email
+       name, phone, email, password
     } = req.body;
+    const saltRounds = 10;
 
-    const market = await Market.create({
-      name,
-      phone,
-      email,
+    bcrypt.hash(password, saltRounds, async function (err, hash) {
+      await Market.create({
+        name,
+        phone,
+        email,
+        password: hash
+      }, function (err, doc) {
+        if (err) return res.send(err);
+
+        return res.json(doc);
+      })
     });
-
-    return res.json(market);
   },
 };

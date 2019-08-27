@@ -1,6 +1,15 @@
 const { Schema, model } = require('mongoose');
 
 const MarketSchema = new Schema({
+    email: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    password: {
+        type: String,
+        required: true
+    },
     name: {
         type: String,
         required: true,
@@ -9,7 +18,6 @@ const MarketSchema = new Schema({
         type: String,
         required: true,
     },
-    email: String,
     products: [
         {
             type: Schema.Types.ObjectId,
