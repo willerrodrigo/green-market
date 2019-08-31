@@ -18,7 +18,7 @@ export default function Products() {
         var response = await api.get('products', config);
         console.log(response);
         setProducts(response.data);
-    }
+    }   
 
     const handleModal = async (id) => {        
         if(id){
