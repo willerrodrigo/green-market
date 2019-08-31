@@ -7,7 +7,7 @@ const AuthController = require('./controllers/AuthController');
 const routes = new express.Router();
 
 // AUTH
-routes.post('markets/authenticate', AuthController.auth);
+routes.post('/markets/authenticate', AuthController.auth);
 
 // MARKET
 routes.get('/markets', MarketController.index);

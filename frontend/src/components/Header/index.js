@@ -6,6 +6,10 @@ import './styles.css';
 import logo from '../../assets/logo.svg';
 
 export default function Header() {
+  const handleLogout = () => {
+    localStorage.removeItem('app-token');
+  }
+
   return (
     <header id="main-header">
       <div className="header-content">
@@ -23,6 +27,9 @@ export default function Header() {
         </NavLink>
         <NavLink to="/register" activeClassName="selected" className="link">
           Register
+        </NavLink>
+        <NavLink to="/login" activeClassName="selected" className="link" onClick={handleLogout}>
+          Logout
         </NavLink>
       </div>
     </header>
