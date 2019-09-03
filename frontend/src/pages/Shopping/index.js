@@ -39,7 +39,7 @@ export default function Shopping() {
         }
         for(let i = 0; i < bags.length; i++){
         
-            if( (bags[i] + peso) < pesoMax ) {
+            if( (bags[i] + peso) <= pesoMax ) {
                 bags[i] += peso;
                 statePerc.percentual = ((bags[i] / pesoMax) * 100).toFixed(2);
                 statePerc.count = countperc;
@@ -110,7 +110,7 @@ export default function Shopping() {
                     </div>
                 </div>
                 <div className="log-container">
-                    <p>Produtos adicionados</p>
+                    <p>Added Products</p>
                     <ul>
                         {itens.map((product =>
                         <li key={product.count}>
