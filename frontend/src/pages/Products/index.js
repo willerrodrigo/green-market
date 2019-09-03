@@ -13,7 +13,7 @@ export default function Products() {
     }, []);
 
     const fetchData = async () => {
-        var config = { headers: {'market': '5d532e0887aded0960431e7e'} };
+        var config = { headers: {'market': localStorage.getItem('user-id')} };
 
         var response = await api.get('products', config);
         console.log(response);

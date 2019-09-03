@@ -11,6 +11,7 @@ dotenv.config();
 mongoose.connect(process.env.DATABASE_URI, {
     useNewUrlParser: true,
     useFindAndModify: false,
+    useCreateIndex: true,
 });
 
 app.use(cors());

@@ -7,6 +7,9 @@ import api from '../../services/api';
 import './styles.css';
 
 const schema = Yup.object().shape({
+    name: Yup.string()
+        .required('Name is a required field'),
+    phone: Yup.string(),
     email: Yup.string()
       .email('Email invalid')
       .required('Email is a required field'),
@@ -15,20 +18,19 @@ const schema = Yup.object().shape({
       .required('Password is a required field'),
 });
 
-export default function SignUp(props) {
+export default function SignUp() {
     const [emailError, setEmailError] = useState(null);
 
-    const handleSubmit = values => {
+    const handleSubmit = (values, { resetForm })=> {
         setEmailError(null);
-        api.post('markets/authenticate', values)
+        api.post('markets/signup', values)
             .then(resp => {
                 console.log(resp);
                 const { data } = resp;
-                if (data.success) {
-                    localStorage.setItem('app-token', data.token);
-                    props.history.push('/');
+                if(data.code === 11000) {
+                    setEmailError('Email already exist');
                 } else {
-                    console.log(data.err);
+                    resetForm();
                 }
             });
     }
@@ -37,8 +39,8 @@ export default function SignUp(props) {
         <div className="main">
             <p className="signupText" align="center">Sign up</p>
             <Form className="form1" schema={schema} onSubmit={handleSubmit}>
-                <Input className="input" type="password" align="center" placeholder="Name" name="name"/>
-                <Input className="input" type="password" align="center" placeholder="Phone" name="phone"/>
+                <Input className="input" type="text" align="center" placeholder="Name" name="name"/>
+                <Input className="input" type="text" align="center" placeholder="Phone" name="phone"/>
                 <Input className="input" type="text" align="center" placeholder="Email" name="email"/>
                 {emailError && <span>{emailError}</span>}
                 <Input className="input" type="password" align="center" placeholder="Password" name="password"/>

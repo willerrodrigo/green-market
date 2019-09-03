@@ -20,7 +20,7 @@ class Register extends Component {
       });
 
       const data = {
-          'market': '5d532e0887aded0960431e7e', // TODO: Get Logged Market ID
+          'market': localStorage.getItem('user-id'), // TODO: Get Logged Market ID
           'name': this.state.name,
           'price': Number(this.state.price),
           'weight': Number(this.state.weight),

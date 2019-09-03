@@ -28,6 +28,7 @@ export default function Login(props) {
                 const { data } = resp;
                 if (data.success) {
                     localStorage.setItem('app-token', data.token);
+                    localStorage.setItem('user-id', data.id);
                     props.history.push('/');
                 } else {
                     if(data.err.includes('Password')) {
