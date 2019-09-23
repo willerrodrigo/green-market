@@ -21,9 +21,9 @@ const schema = Yup.object().shape({
 export default function SignUp() {
     const [emailError, setEmailError] = useState(null);
 
-    const handleSubmit = (values, { resetForm })=> {
+    const handleSubmit = async (values, { resetForm }) => {
         setEmailError(null);
-        api.post('markets/signup', values)
+        await api.post('markets/signup', values)
             .then(resp => {
                 console.log(resp);
                 const { data } = resp;
@@ -38,7 +38,7 @@ export default function SignUp() {
     return (
         <div className="main">
             <p className="signupText" align="center">Sign up</p>
-            <Form className="form1" schema={schema} onSubmit={handleSubmit}>
+            <Form className="form" schema={schema} onSubmit={handleSubmit}>
                 <Input className="input" type="text" align="center" placeholder="Name" name="name"/>
                 <Input className="input" type="text" align="center" placeholder="Phone" name="phone"/>
                 <Input className="input" type="text" align="center" placeholder="Email" name="email"/>

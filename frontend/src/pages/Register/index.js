@@ -1,94 +1,86 @@
 import React, { Component } from 'react';
 import api from '../../services/api';
+import { Form, Input } from '@rocketseat/unform';
+import * as Yup from 'yup';
+
 import './styles.css';
+
+const schema = Yup.object().shape({
+  name: Yup.string()
+    .required('Name is a required field'),
+  price: Yup.number()
+    .required('Price is a required field')
+    .typeError('You must specify a number'),
+  weight: Yup.number()
+    .required('Weight is a required field')
+    .typeError('You must specify a number'),
+  volume: Yup.number()
+    .required('Volume is a required field')
+    .typeError('You must specify a number'),
+  category: Yup.string()
+    .required('Category is a required field')
+});
 
 class Register extends Component {
     state = {
-      name: '',
-      price: '',
-      weight: '',
-      volume: '',
-      category: '',
       loading: false,
     };
 
-    handleSubmit = async (e) => {
-      e.preventDefault();
-      
+    handleSubmit = async (values, { resetForm }) => {
+
       this.setState({
         loading: true
       });
 
       const data = {
-          'market': localStorage.getItem('user-id'), // TODO: Get Logged Market ID
-          'name': this.state.name,
-          'price': Number(this.state.price),
-          'weight': Number(this.state.weight),
-          'volume': Number(this.state.volume),
-          'category': this.state.category
+          ...values,
+          'market': localStorage.getItem('user-id')
       }
 
-      await api.post('products', data);
+      await api.post('products', data).catch(err => console.log(err));
+
+      resetForm();
 
       this.setState({
-        name: '',
-        price: '',
-        weight: '',
-        volume: '',
-        category: '',
         loading: false
       });
     }
 
-    handleChange = (e) => {
-      this.setState({ [e.target.name]: e.target.value });
-    }
-
     render() {
       return (
-        <form id="new-product" onSubmit={this.handleSubmit}>
-          <input
+        <Form id="new-product" schema={schema} onSubmit={this.handleSubmit}>
+          <Input
             type="text"
             name="name"
             placeholder="Name"
-            onChange={this.handleChange}
-            value={this.state.name}
           />
 
-          <input
+          <Input
             type="text"
             name="price"
             placeholder="Price"
-            onChange={this.handleChange}
-            value={this.state.price}
           />
 
-          <input
+          <Input
             type="text"
             name="weight"
             placeholder="Weight (Kg)"
-            onChange={this.handleChange}
-            value={this.state.weight}
           />
 
-          <input
+          <Input
             type="text"
             name="volume"
             placeholder="Volume (L)"
-            onChange={this.handleChange}
-            value={this.state.volume}
           />
 
-          <input
+          <Input
             type="text"
             name="category"
             placeholder="Category"
-            onChange={this.handleChange}
-            value={this.state.category}
           />
 
           <button type="submit" disabled={this.state.loading}>Register</button>
-        </form>
+        </Form>
       );
     }
 }

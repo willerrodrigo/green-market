@@ -31,7 +31,7 @@ module.exports = {
             res.json({
               success: false,
               token: null,
-              err: 'Password incorret!'
+              err: 'Incorret password!'
             });
           }
         }

@@ -1,7 +1,25 @@
 import React, { Component } from 'react';
 import api from '../../services/api';
+import { Form, Input } from '@rocketseat/unform';
+import * as Yup from 'yup';
 
 import './styles.css';
+
+const schema = Yup.object().shape({
+    name: Yup.string()
+      .required('Name is a required field'),
+    price: Yup.number()
+      .required('Price is a required field')
+      .typeError('You must specify a number'),
+    weight: Yup.number()
+      .required('Weight is a required field')
+      .typeError('You must specify a number'),
+    volume: Yup.number()
+      .required('Volume is a required field')
+      .typeError('You must specify a number'),
+    category: Yup.string()
+      .required('Category is a required field')
+  });
 
 export default class Modal extends Component {
     state = {
@@ -32,29 +50,26 @@ export default class Modal extends Component {
         modal.style.display = "none";
     }
 
-    handleSubmit = async (e) => {
+    handleSubmit = async (values) => {
         this.setState({ disableDeleteBtn: true, disableEditBtn: true });
 
-        if(e.target.id === 'editButton'){
-             await api.put('products', {
-                _id: this.props.value._id,
-                update: {
-                    'name': this.state.name,
-                    'price': this.state.price,
-                    'weight': this.state.weight,
-                    'volume': this.state.volume,
-                    'category': this.state.category,
-                }
-            });
+        await api.put('products', {
+            _id: this.props.value._id,
+            update: values
+        });
 
-            this.setState({ disableDeleteBtn: false });
-        }
-        else {
-            await api.delete(`products/${this.props.value._id}`);
-            var modal = document.getElementById("myModal");
-            modal.style.display = "none";
-        }
+        this.setState({ disableDeleteBtn: false });
+        this.handleModal();
+        this.props.update();
+    }
 
+    handleDelete = async () => {
+        this.setState({ disableDeleteBtn: true, disableEditBtn: true });
+
+        await api.delete(`products/${this.props.value._id}`);
+
+        this.setState({ disableDeleteBtn: false });
+        this.handleModal();
         this.props.update();
     }
 
@@ -69,58 +84,58 @@ export default class Modal extends Component {
                     <div className="modal-header">
                         <span className="close" onClick={this.handleModal}>&times;</span>
                     </div>
-                    <div className="modal-body">
-                        <form>
-                            <label>Name: </label>
-                            <input
-                                type="text"
-                                name="name"
-                                placeholder="Name"
-                                onChange={this.handleChange}
-                                value={this.state.name}
-                            />
+                    <Form onSubmit={this.handleSubmit} schema={schema}>
+                        <div className="modal-body">
+                                <label>Name: </label>
+                                <Input
+                                    type="text"
+                                    name="name"
+                                    placeholder="Name"
+                                    onChange={this.handleChange}
+                                    value={this.state.name}
+                                />
 
-                            <label>Price: </label>
-                            <input
-                                type="text"
-                                name="price"
-                                placeholder="Price"
-                                onChange={this.handleChange}
-                                value={this.state.price}
-                            />
+                                <label>Price: </label>
+                                <Input
+                                    type="text"
+                                    name="price"
+                                    placeholder="Price"
+                                    onChange={this.handleChange}
+                                    value={this.state.price}
+                                />
 
-                            <label>Weight: </label>
-                            <input
-                                type="text"
-                                name="weight"
-                                placeholder="Weight (Kg)"
-                                onChange={this.handleChange}
-                                value={this.state.weight}
-                            />
+                                <label>Weight: </label>
+                                <Input
+                                    type="text"
+                                    name="weight"
+                                    placeholder="Weight (Kg)"
+                                    onChange={this.handleChange}
+                                    value={this.state.weight}
+                                />
 
-                            <label>Volume: </label>
-                            <input
-                                type="text"
-                                name="volume"
-                                placeholder="Volume (L)"
-                                onChange={this.handleChange}
-                                value={this.state.volume}
-                            />
+                                <label>Volume: </label>
+                                <Input
+                                    type="text"
+                                    name="volume"
+                                    placeholder="Volume (L)"
+                                    onChange={this.handleChange}
+                                    value={this.state.volume}
+                                />
 
-                            <label>Category: </label>
-                            <input
-                                type="text"
-                                name="category"
-                                placeholder="Category"
-                                onChange={this.handleChange}
-                                value={this.state.category}
-                            />
-                        </form>
-                    </div>
-                    <div className="modal-footer">
-                        <button  onClick={this.handleSubmit} id="editButton" type="submit" disabled={this.state.disableEditBtn}>Editar</button>
-                        <button  onClick={this.handleSubmit} id="deleteButton" type="submit" disabled={this.state.disableDeleteBtn}>Excluir</button>
-                    </div>
+                                <label>Category: </label>
+                                <Input
+                                    type="text"
+                                    name="category"
+                                    placeholder="Category"
+                                    onChange={this.handleChange}
+                                    value={this.state.category}
+                                />
+                        </div>
+                        <div className="modal-footer">
+                            <button id="editButton" type="submit" disabled={this.state.disableEditBtn}>Editar</button>
+                            <button onClick={this.handleDelete} id="deleteButton" type="submit" disabled={this.state.disableDeleteBtn}>Excluir</button>
+                        </div>
+                    </Form>
                 </div>
             </div>
         );

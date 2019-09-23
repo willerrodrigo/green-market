@@ -11,7 +11,7 @@ form#new-product {
 }
 
 form#new-product input {
-    margin-bottom: 10px;
+    margin-top: 10px;
 }
 
 form#new-product input[type=text] {
@@ -31,6 +31,7 @@ form#new-product button {
     font-size: 14px;
     font-weight: bold;
     cursor: pointer;
+    margin-top: 10px;
 }
 
 form#new-product button:hover {
@@ -39,4 +40,9 @@ form#new-product button:hover {
 
 form#new-product button:disabled {
     opacity: 0.5;
+}
+
+form span {
+    color: red;
+    margin-left: 0px;
 }
