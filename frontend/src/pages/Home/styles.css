@@ -1,6 +1,10 @@
-.logo-container {
-    height: 100%;
+.chart-container {
+    width: 100%;
+    max-width: 580px;
+    margin: 30px auto 0;
+    padding: 20px;
+    background: #fff;
+    border: 1px solid #ddd;
+
     display: flex;
-    justify-content: center;
-    align-items: center;
 }
