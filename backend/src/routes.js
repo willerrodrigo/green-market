@@ -3,6 +3,7 @@ const express = require('express');
 const MarketController = require('./controllers/MarketController');
 const ProductController = require('./controllers/ProductController');
 const AuthController = require('./controllers/AuthController');
+const ShoppingController = require('./controllers/ShoppingController');
 
 const routes = new express.Router();
 
@@ -12,6 +13,9 @@ routes.post('/markets/authenticate', AuthController.auth);
 // MARKET
 routes.get('/markets', MarketController.index);
 routes.post('/markets/signup', MarketController.store);
+
+// SHOPPING
+routes.post('/shopping', ShoppingController.store);
 
 // PRODUCT
 routes.get('/products', ProductController.index);

@@ -136,3 +136,20 @@
     font-size: 16px;
     color: #666;
 }
+
+.log-container button {
+    margin-top: 10px;
+    border: 0;
+    border-radius: 4px;
+    height: 48px;
+    width: 100%;
+    font-size: 16px;
+    background: #228B22;
+    font-weight: bold;
+    color: #fff;
+    cursor: pointer;
+}
+
+.log-container .err {
+    color: red;
+}
