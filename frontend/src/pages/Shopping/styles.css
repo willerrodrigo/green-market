@@ -16,6 +16,17 @@
     justify-content: space-between;
 }
 
+.shopping-container .errCode {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 0 30px;
+
+    display: flex;
+    justify-content: space-between;
+    color: red;
+}
+
 .shopping-container .baglog-container {
     width: 100%;
     max-width: 1000px;
@@ -88,13 +99,14 @@
     margin: 30px auto 0;
     background: #fff;
     border: 1px solid #ddd;
+
 }
 
 .shopping-container .baglog-container .log-container ul {
     list-style: none;
     height: 350px;
     overflow-y: auto;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
     margin-top: 6px;
     padding: 5px;
     border: 1px solid #ddd;
@@ -112,6 +124,30 @@
 .shopping-container .baglog-container .log-container footer strong {
     display: flex;
     justify-content: flex-end;
+}
+
+.shopping-container .baglog-container .log-container button {
+    margin-top: 10px;
+    border: 0;
+    border-radius: 4px;
+    height: 48px;
+    width: 100%;
+    font-size: 16px;
+    background: #228B22;
+    font-weight: bold;
+    color: #fff;
+    cursor: pointer;
+}
+
+.shopping-container .baglog-container .log-container .title {
+    margin-left: 30%;
+    margin-top: 2px;
+    color: #666;
+}
+
+.shopping-container .baglog-container .log-container .errShopping {
+    color: red;
+    margin-left: 15%;
 }
 
 .shopping-container form button {
@@ -135,21 +171,4 @@
     padding: 0 20px;
     font-size: 16px;
     color: #666;
-}
-
-.log-container button {
-    margin-top: 10px;
-    border: 0;
-    border-radius: 4px;
-    height: 48px;
-    width: 100%;
-    font-size: 16px;
-    background: #228B22;
-    font-weight: bold;
-    color: #fff;
-    cursor: pointer;
-}
-
-.log-container .err {
-    color: red;
 }

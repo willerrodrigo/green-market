@@ -6,10 +6,10 @@ import './styles.css';
 
 import bag from '../../assets/bagFinal.svg';
 
-const schema = Yup.object().shape({
+/* const schema = Yup.object().shape({
     codigoBarra: Yup.string()
         .required('Code is a required field'),
-});
+}); */
 
 let itens = [];
 let bags = [];
@@ -20,7 +20,8 @@ let totalPagar = 0;
 
 export default function Shopping() {
     const [products, setProducts] = useState([{}]);
-    const [mensagemErro, setMensagemErro] = useState();
+    const [mensagemErroShopping, setMensagemErro] = useState();
+    const [mensagemErroCode, setMensagemErroCode] = useState();
 
     function bagCalculate() {
         let pesoMax = 10;
@@ -65,18 +66,26 @@ export default function Shopping() {
     }
 
     const handleBag = async (values) => {
-
-        var response = await api.get(`products/${values.codigoBarra}`);
-
-        let state = {
-            ...response.data
+        if(!values.codigoBarra){
+            setMensagemErroCode('Código de barras deve ser inserido.');
         }
-        itens.push(state);
-        totalPagar += state.price;
+        else{
+            var response = await api.get(`products/${values.codigoBarra}`);
+            if(response.data.message){
+                setMensagemErroCode('Código de barras inválido');
+            }
+            else{
+                let state = {
+                    ...response.data
+                }
+                itens.push(state);
+                totalPagar += state.price;
 
-        bagCalculate();
-        setProducts(response.data);
-
+                bagCalculate();
+                setProducts(response.data);
+                setMensagemErroCode('');
+            }
+        }
     }
 
     const handleShopping = async () => {
@@ -114,10 +123,11 @@ export default function Shopping() {
 
     return (
         <div className="shopping-container">
-            <Form onSubmit= {handleBag} schema={schema}>
+            <Form onSubmit= {handleBag} /*schema={schema}*/>
                 <Input name="codigoBarra" placeholder="Product" />
                 <button type="submit" >Add</button>
             </Form>
+            <p className="errCode">{mensagemErroCode}</p>
 
             <div className="baglog-container">
                 <div className="bag-container">
@@ -134,7 +144,7 @@ export default function Shopping() {
                     </div>
                 </div>
                 <div className="log-container">
-                    <p>Added Products</p>
+                    <p className="title">Added Products</p>
                     <ul>
                         {itens.map((product, index) =>
                         <li key={index}>
@@ -145,7 +155,7 @@ export default function Shopping() {
                     <footer><strong>Total: R${totalPagar.toFixed(2)}</strong></footer>
 
                         <button type="submit" onClick={handleShopping}>Finalizar Compra</button>
-                        <p className="err">{mensagemErro}</p>
+                        <p className="errShopping">{mensagemErroShopping}</p>
                 </div>
             </div>
         </div>
