@@ -24,4 +24,13 @@ module.exports = {
       return res.json(shopping);
     });
   },
+  async index(req, res) {
+    const { market } = req.headers;
+
+    await Shopping.find({ market: market}, ['totalWeight', 'bags'], function(err, doc) {
+      if(err) return res.send(err);
+
+      return res.json(doc);
+    }).sort('+createdAt');
+  },
 };

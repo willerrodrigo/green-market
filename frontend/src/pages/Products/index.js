@@ -16,7 +16,6 @@ export default function Products() {
         var config = { headers: {'market': localStorage.getItem('user-id')} };
 
         var response = await api.get('products', config);
-        console.log(response);
         setProducts(response.data);
     }   
 

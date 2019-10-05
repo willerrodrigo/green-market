@@ -16,6 +16,7 @@ routes.post('/markets/signup', MarketController.store);
 
 // SHOPPING
 routes.post('/shopping', ShoppingController.store);
+routes.get('/shopping', ShoppingController.index);
 
 // PRODUCT
 routes.get('/products', ProductController.index);

@@ -39,7 +39,7 @@ body {
     font-family: 'Ubuntu', sans-serif;
 }
 
-form.form {
+.form-signup {
     padding-top: 13px;
 }
 
@@ -82,7 +82,7 @@ a {
     }
 }
 
-span {
+.form-signup span {
     color: red;
     margin-left: 46px;
 }
