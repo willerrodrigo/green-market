@@ -1,15 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Form, Input } from '@rocketseat/unform';
-import * as Yup from 'yup';
 import api from '../../services/api';
 import './styles.css';
 
 import bag from '../../assets/bagFinal.svg';
-
-/* const schema = Yup.object().shape({
-    codigoBarra: Yup.string()
-        .required('Code is a required field'),
-}); */
 
 let itens = [];
 let bags = [];
@@ -20,12 +14,12 @@ let totalPagar = 0;
 
 export default function Shopping() {
     const [products, setProducts] = useState([{}]);
-    const [mensagemErroShopping, setMensagemErro] = useState();
-    const [mensagemErroCode, setMensagemErroCode] = useState();
+    const [errorMessageShopping, setErrorMessageShopping] = useState();
+    const [errorMessageCode, setErrorMessageCode] = useState();
 
     function bagCalculate() {
-        let pesoMax = 10;
-        let peso = (itens[itens.length - 1].weight);
+        let maxWeight = 10;
+        let weight = (itens[itens.length - 1].weight);
 
         let statePerc = {
             percentual: String,
@@ -41,19 +35,19 @@ export default function Shopping() {
         }
         for(let i = 0; i < bags.length; i++){
 
-            if( (bags[i] + peso) <= pesoMax ) {
-                bags[i] += peso;
-                statePerc.percentual = ((bags[i] / pesoMax) * 100).toFixed(2);
+            if( (bags[i] + weight) <= maxWeight ) {
+                bags[i] += weight;
+                statePerc.percentual = ((bags[i] / maxWeight) * 100).toFixed(2);
                 statePerc.count = countperc;
                 porcentual[i] = statePerc;
 
                 break;
             } else if ( bags[i] === bags[bags.length - 1] ) {
 
-                bags.push(peso);
+                bags.push(weight);
                 countperc++;
                 statePerc.count = countperc;
-                statePerc.percentual = ((bags[bags.length - 1] / pesoMax) * 100).toFixed(2);
+                statePerc.percentual = ((bags[bags.length - 1] / maxWeight) * 100).toFixed(2);
 
                 porcentual.push( statePerc );
 
@@ -61,18 +55,23 @@ export default function Shopping() {
             }
 
         }
-
-        console.log(bags);
     }
 
     const handleBag = async (values) => {
         if(!values.codigoBarra){
-            setMensagemErroCode('Código de barras deve ser inserido.');
+            setErrorMessageCode('Código de barras deve ser inserido.');
+        }
+        else if(values.codigoBarra.length != 24){
+            setErrorMessageCode('Tamanho insuficiente');
         }
         else{
+
             var response = await api.get(`products/${values.codigoBarra}`);
-            if(response.data.message){
-                setMensagemErroCode('Código de barras inválido');
+            if(!response.data) {
+                setErrorMessageCode('Código de barras inválido');
+            }
+            else if(response.data.message){
+                setErrorMessageCode('Código de barras inválido');
             }
             else{
                 let state = {
@@ -83,7 +82,7 @@ export default function Shopping() {
 
                 bagCalculate();
                 setProducts(response.data);
-                setMensagemErroCode('');
+                setErrorMessageCode('');
             }
         }
     }
@@ -92,7 +91,6 @@ export default function Shopping() {
         let pesoTotal = 0;
 
         if(itens.length > 0){
-            
 
             for(let k = 0; k < itens.length; k++){
                 pesoTotal += itens[k].weight;
@@ -109,25 +107,25 @@ export default function Shopping() {
 
             bags = [];
             itens = [];
-            console.log(bags);
             porcentual = [];
             totalPagar = 0;
-            setMensagemErro('');
+            setErrorMessageShopping('');
 
         }
         else {
-            setMensagemErro('Nenhum produto adicionado.');
+            setErrorMessageShopping('Nenhum produto adicionado.');
+            console.log('chegou');
         }
 
     }
 
     return (
         <div className="shopping-container">
-            <Form onSubmit= {handleBag} /*schema={schema}*/>
+            <Form onSubmit= {handleBag} >
                 <Input name="codigoBarra" placeholder="Product" />
                 <button type="submit" >Add</button>
             </Form>
-            <p className="errCode">{mensagemErroCode}</p>
+            <p className="errCode">{errorMessageCode}</p>
 
             <div className="baglog-container">
                 <div className="bag-container">
@@ -155,7 +153,7 @@ export default function Shopping() {
                     <footer><strong>Total: R${totalPagar.toFixed(2)}</strong></footer>
 
                         <button type="submit" onClick={handleShopping}>Finalizar Compra</button>
-                        <p className="errShopping">{mensagemErroShopping}</p>
+                        <p className="errShopping">{errorMessageShopping}</p>
                 </div>
             </div>
         </div>
