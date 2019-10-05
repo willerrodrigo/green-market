@@ -7,9 +7,8 @@ import bag from '../../assets/bagFinal.svg';
 
 let itens = [];
 let bags = [];
-let porcentual = [];
-let countperc = 1;
-let totalPagar = 0;
+let percentage = [];
+let totalPay = 0;
 
 
 export default function Shopping() {
@@ -20,36 +19,28 @@ export default function Shopping() {
     function bagCalculate() {
         let maxWeight = 10;
         let weight = (itens[itens.length - 1].weight);
-
-        let statePerc = {
-            percentual: String,
-            count: Number,
-        };
+        let auxPercentage = '0.00';
 
         if(bags.length === 0) {
             bags.push(0.0);
-            statePerc.count = countperc;
-            statePerc.percentual = '0.00';
-            porcentual.push(statePerc);
+            percentage.push(auxPercentage);
 
         }
         for(let i = 0; i < bags.length; i++){
-
+            
             if( (bags[i] + weight) <= maxWeight ) {
                 bags[i] += weight;
-                statePerc.percentual = ((bags[i] / maxWeight) * 100).toFixed(2);
-                statePerc.count = countperc;
-                porcentual[i] = statePerc;
+                auxPercentage = ((bags[i] / maxWeight) * 100).toFixed(2);
+
+                percentage[i] = auxPercentage;
 
                 break;
             } else if ( bags[i] === bags[bags.length - 1] ) {
 
                 bags.push(weight);
-                countperc++;
-                statePerc.count = countperc;
-                statePerc.percentual = ((bags[bags.length - 1] / maxWeight) * 100).toFixed(2);
+                auxPercentage = ((bags[bags.length - 1] / maxWeight) * 100).toFixed(2);
 
-                porcentual.push( statePerc );
+                percentage.push( auxPercentage );
 
                 break;
             }
@@ -58,27 +49,27 @@ export default function Shopping() {
     }
 
     const handleBag = async (values) => {
-        if(!values.codigoBarra){
-            setErrorMessageCode('Código de barras deve ser inserido.');
+        if(!values.barCode){
+            setErrorMessageCode('Barcode must be entered');
         }
-        else if(values.codigoBarra.length != 24){
-            setErrorMessageCode('Tamanho insuficiente');
+        else if(values.barCode.length != 24){
+            setErrorMessageCode('Invalid barcode');
         }
         else{
 
-            var response = await api.get(`products/${values.codigoBarra}`);
+            var response = await api.get(`products/${values.barCode}`);
             if(!response.data) {
-                setErrorMessageCode('Código de barras inválido');
+                setErrorMessageCode('Invalid barcode');
             }
             else if(response.data.message){
-                setErrorMessageCode('Código de barras inválido');
+                setErrorMessageCode('Invalid barcode');
             }
             else{
                 let state = {
                     ...response.data
                 }
                 itens.push(state);
-                totalPagar += state.price;
+                totalPay += state.price;
 
                 bagCalculate();
                 setProducts(response.data);
@@ -88,17 +79,17 @@ export default function Shopping() {
     }
 
     const handleShopping = async () => {
-        let pesoTotal = 0;
+        let totalWeight = 0;
 
         if(itens.length > 0){
 
             for(let k = 0; k < itens.length; k++){
-                pesoTotal += itens[k].weight;
+                totalWeight += itens[k].weight;
             }
 
             const data = {
-                totalPrice: totalPagar,
-                totalWeight: pesoTotal,
+                totalPrice: totalPay,
+                totalWeight: totalWeight,
                 bags: bags.length,
                 'market': localStorage.getItem('user-id')
             }
@@ -107,14 +98,13 @@ export default function Shopping() {
 
             bags = [];
             itens = [];
-            porcentual = [];
-            totalPagar = 0;
+            percentage = [];
+            totalPay = 0;
             setErrorMessageShopping('');
 
         }
         else {
-            setErrorMessageShopping('Nenhum produto adicionado.');
-            console.log('chegou');
+            setErrorMessageShopping('No products added.');
         }
 
     }
@@ -122,7 +112,7 @@ export default function Shopping() {
     return (
         <div className="shopping-container">
             <Form onSubmit= {handleBag} >
-                <Input name="codigoBarra" placeholder="Product" />
+                <Input name="barCode" placeholder="Product" />
                 <button type="submit" >Add</button>
             </Form>
             <p className="errCode">{errorMessageCode}</p>
@@ -130,15 +120,15 @@ export default function Shopping() {
             <div className="baglog-container">
                 <div className="bag-container">
                     <ul>
-                        {porcentual.map((product, index) =>
+                        {percentage.map((product, index) =>
                             <li key={index}>
-                                <img src={bag} alt="Sacola" height="68" />
-                                <footer><strong>{product.percentual}%</strong></footer>
+                                <img src={bag} alt="Bag" height="68" />
+                                <footer><strong>{product}%</strong></footer>
                             </li>
                         )}
                     </ul>
-                    <div className="teste">
-                        <footer><strong>Total: {porcentual.length}</strong></footer>
+                    <div className="bagFooter">
+                        <footer><strong>Total: {percentage.length}</strong></footer>
                     </div>
                 </div>
                 <div className="log-container">
@@ -150,7 +140,7 @@ export default function Shopping() {
                         </li>
                         )}
                     </ul>
-                    <footer><strong>Total: R${totalPagar.toFixed(2)}</strong></footer>
+                    <footer><strong>Total: R${totalPay.toFixed(2)}</strong></footer>
 
                         <button type="submit" onClick={handleShopping}>Finalizar Compra</button>
                         <p className="errShopping">{errorMessageShopping}</p>
