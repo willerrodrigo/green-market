@@ -142,7 +142,7 @@ export default function Shopping() {
                     </ul>
                     <footer><strong>Total: R${totalPay.toFixed(2)}</strong></footer>
 
-                        <button type="submit" onClick={handleShopping}>Finalizar Compra</button>
+                        <button type="submit" onClick={handleShopping}>Check out</button>
                         <p className="errShopping">{errorMessageShopping}</p>
                 </div>
             </div>
