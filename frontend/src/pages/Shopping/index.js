@@ -62,8 +62,9 @@ export default function Shopping() {
             }
             else if(response.data.message){
                 setErrorMessageCode('Invalid barcode');
-            }
-            else{
+            }else if(localStorage.getItem('user-id') !== response.data.market) {
+                setErrorMessageCode('Invalid barcode');
+            } else {
                 let state = {
                     ...response.data
                 }
