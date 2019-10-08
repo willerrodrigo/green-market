@@ -31,7 +31,7 @@ export default function Login(props) {
                     localStorage.setItem('user-id', data.id);
                     props.history.push('/');
                 } else {
-                    if(data.err.includes('Password')) {
+                    if(data.err.includes('password')) {
                         setPassError(data.err);
                     }
                     else {

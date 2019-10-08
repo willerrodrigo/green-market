@@ -19,7 +19,7 @@ module.exports = {
         else {
           if (result === true) {
             console.log("Valid!");
-            let token = jwt.sign({ email: user.email }, 'secret', { expiresIn: '1h' }); // Signing the token
+            const token = jwt.sign({ email: user.email }, process.env.JWT_PRIVATE_KEY, { expiresIn: '1h' }); // Signing the token
             res.json({
               success: true,
               err: null,

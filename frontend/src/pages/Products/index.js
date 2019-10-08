@@ -17,13 +17,11 @@ export default function Products() {
 
         var response = await api.get('products', config);
         setProducts(response.data);
-    }   
+    }
 
-    const handleModal = async (id) => {        
-        if(id){
-            var response = await api.get(`products/${id}`);
-            setModalProduct(response.data);
-        }
+    const handleModal = async (id) => {
+        var response = await api.get(`products/${id}`);
+        setModalProduct(response.data);
 
         var modal = document.getElementById("myModal");
         modal.style.display = "block";

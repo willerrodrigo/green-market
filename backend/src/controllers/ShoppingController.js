@@ -16,7 +16,7 @@ module.exports = {
         market
       });
 
-    //loggedMarket.shopping.push(shopping._id);
+    loggedMarket.shopping.push(shopping._id);
 
     await loggedMarket.save(function (err) {
       if (err) return res.send(err);
@@ -31,6 +31,6 @@ module.exports = {
       if(err) return res.send(err);
 
       return res.json(doc);
-    }).sort('+createdAt');
+    }).sort('+createdAt').limit(4);
   },
 };
