@@ -13,7 +13,7 @@ let totalPay = 0;
 
 export default function Shopping() {
     const [products, setProducts] = useState([{}]);
-    const [errorMessageShopping, setErrorMessageShopping] = useState();
+    const [errorMessageShopping, setErrorMessageShopping] = useState('');
     const [errorMessageCode, setErrorMessageCode] = useState();
 
     function bagCalculate() {
@@ -52,7 +52,7 @@ export default function Shopping() {
         if(!values.barCode){
             setErrorMessageCode('Barcode must be entered');
         }
-        else if(values.barCode.length != 24){
+        else if(values.barCode.length !== 24){
             setErrorMessageCode('Invalid barcode');
         }
         else{
@@ -74,6 +74,7 @@ export default function Shopping() {
                 bagCalculate();
                 setProducts(response.data);
                 setErrorMessageCode('');
+                setErrorMessageShopping('');
             }
         }
     }
@@ -100,6 +101,7 @@ export default function Shopping() {
             itens = [];
             percentage = [];
             totalPay = 0;
+            setProducts(itens);
             setErrorMessageShopping('');
 
         }
@@ -107,6 +109,14 @@ export default function Shopping() {
             setErrorMessageShopping('No products added.');
         }
 
+    }
+
+    const handleCleanCart = () => {
+        bags = [];
+        itens = [];
+        percentage = [];
+        totalPay = 0;
+        setErrorMessageShopping('Cart was cleaned.');
     }
 
     return (
@@ -136,14 +146,15 @@ export default function Shopping() {
                     <ul>
                         {itens.map((product, index) =>
                         <li key={index}>
-                            <p>{product.name}</p><p>{product.price}</p>
+                            <p>{product.name}</p><p>R${product.price.toFixed(2)}</p>
                         </li>
                         )}
                     </ul>
                     <footer><strong>Total: R${totalPay.toFixed(2)}</strong></footer>
 
-                        <button type="submit" onClick={handleShopping}>Check out</button>
-                        <p className="errShopping">{errorMessageShopping}</p>
+                        <button className="checkOut" type="submit" onClick={handleShopping}>Check out</button>
+                        <button className="cleanCart" type="submit" onClick={handleCleanCart}>Clean cart</button>
+                        <p className="errShopping" style={{color: errorMessageShopping.includes('cleaned') ? 'green' : 'red'}}>{errorMessageShopping}</p>
                 </div>
             </div>
         </div>

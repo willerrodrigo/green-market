@@ -175,3 +175,7 @@
 strong {
     padding-right: 6px;
 }
+
+.shopping-container .baglog-container .log-container .cleanCart {
+    background: #FF0000;
+}
