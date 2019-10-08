@@ -23,6 +23,12 @@ const MarketSchema = new Schema({
             type: Schema.Types.ObjectId,
             ref: 'Product'
         }
+    ],
+    shopping: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Shopping'
+        }
     ]
 }, {
     timestamps: true,

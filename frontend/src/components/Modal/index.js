@@ -132,8 +132,8 @@ export default class Modal extends Component {
                                 />
                         </div>
                         <div className="modal-footer">
-                            <button id="editButton" type="submit" disabled={this.state.disableEditBtn}>Editar</button>
-                            <button onClick={this.handleDelete} id="deleteButton" type="submit" disabled={this.state.disableDeleteBtn}>Excluir</button>
+                            <button id="editButton" type="submit" disabled={this.state.disableEditBtn}>Edit</button>
+                            <button onClick={this.handleDelete} id="deleteButton" type="submit" disabled={this.state.disableDeleteBtn}>Delete</button>
                         </div>
                     </Form>
                 </div>

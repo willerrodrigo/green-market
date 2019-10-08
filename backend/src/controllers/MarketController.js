@@ -27,7 +27,7 @@ module.exports = {
           password: hash
         }, function (err, doc) {
           if (err) return res.send(err);
-  
+
           return res.json(doc);
         })
       }

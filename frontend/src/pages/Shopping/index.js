@@ -10,9 +10,8 @@ let bags = [];
 let percentage = [];
 let totalPay = 0;
 
-
 export default function Shopping() {
-    const [products, setProducts] = useState([{}]);
+    const [, setProducts] = useState([{}]);
     const [errorMessageShopping, setErrorMessageShopping] = useState('');
     const [errorMessageCode, setErrorMessageCode] = useState();
 
@@ -151,10 +150,9 @@ export default function Shopping() {
                         )}
                     </ul>
                     <footer><strong>Total: R${totalPay.toFixed(2)}</strong></footer>
-
-                        <button className="checkOut" type="submit" onClick={handleShopping}>Check out</button>
-                        <button className="cleanCart" type="submit" onClick={handleCleanCart}>Clean cart</button>
-                        <p className="errShopping" style={{color: errorMessageShopping.includes('cleaned') ? 'green' : 'red'}}>{errorMessageShopping}</p>
+                    <button className="checkOut" type="submit" onClick={handleShopping}>Check out</button>
+                    <button className="cleanCart" type="submit" onClick={handleCleanCart}>Clean cart</button>
+                    <p className="errShopping" style={{color: errorMessageShopping.includes('cleaned') ? 'green' : 'red'}}>{errorMessageShopping}</p>
                 </div>
             </div>
         </div>

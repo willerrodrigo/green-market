@@ -18,17 +18,17 @@ export default function Home() {
 
         var greenMarketData = [
             0,
-            shoppingList[0].bags,
-            shoppingList[1].bags,
-            shoppingList[2].bags,
-            shoppingList[3].bags,
+            shoppingList[0] === undefined ? 0 : shoppingList[0].bags,
+            shoppingList[1] === undefined ? 0 : shoppingList[1].bags,
+            shoppingList[2] === undefined ? 0 : shoppingList[2].bags,
+            shoppingList[3] === undefined ? 0 : shoppingList[3].bags,
         ]
         var ConventionalData = [
             0,
-            shoppingList[0].bags,
-            shoppingList[1].bags + 1,
-            shoppingList[2].bags + 2,
-            shoppingList[3].bags + 3,
+            shoppingList[0] === undefined ? 0 : shoppingList[0].bags,
+            shoppingList[1] === undefined ? 0 : shoppingList[1].bags + 1,
+            shoppingList[2] === undefined ? 0 : shoppingList[2].bags + 2,
+            shoppingList[3] === undefined ? 0 : shoppingList[3].bags + 3,
         ]
 
         new Chart(document.getElementById("myChart"), {
